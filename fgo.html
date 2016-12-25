@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>自定义英灵-by-俊采新驰</title>
+	<style type="text/css">
+		#main-container
+		{
+			border: 1px solid grey;
+			position: relative;
+			float: left;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			width: 100%;
+			max-width: 500px;
+			text-align: center;
+		}
+		#Canvas-container
+		{
+			position: relative;
+			float: left;
+			max-width: 500px;
+			width: 100%;
+		}
+		@font-face {
+			font-family: FGO;
+			src: url('Font/CasadSerial-Medium.ttf') format("truetype");
+		}
+	</style>
+	<script type="text/javascript">
+		function preLoadImg(url) //图片预下载用的函数
+		{ 
+			var img = new Image(); 
+			img.src = url;
+		} 
+		function imgPreview(fileDom)//上传图片用的函数
+		{
+        	//判断是否支持FileReader
+        	if (window.FileReader) {
+        		var reader = new FileReader();
+        	} else {
+        		alert("您的设备不支持上传图片功能，如需该功能请升级您的设备！");
+        	}
+        	//获取文件
+        	var file = fileDom.files[0];
+        	var imageType = /^image\//;
+        	//是否是图片
+        	if (!imageType.test(file.type)) 
+        	{
+        		alert("请选择图片！");
+        		return;
+        	}	
+	        //读取完成
+	        reader.onload = function(e) 
+	        {
+	            //获取图片dom
+	            var img = document.getElementById("preview");
+	            //图片路径设置为读取的图片
+	            img.src = e.target.result;
+	        };
+	        reader.readAsDataURL(file);
+	    }
+	    function get_pic(id)//画出图鉴的函数
+	    {
+	    	var canvas=document.getElementById(id);
+	    	var content=canvas.getContext("2d");
+	    	var img_logo=new Image();
+	    	var img_hero=new Image();
+	    	var img_bg=new Image();
+	    	img_logo.crossOrigin = '';
+	    	img_hero.crossOrigin = '';
+	    	img_bg.crossOrigin = '';
+	    	var Hero_class=document.getElementById("Hero_class").value;
+	    	var Hero_name=document.getElementById("Hero_name").value;
+	    	var ATK=document.getElementById("ATK").value;
+	    	var HP=document.getElementById("HP").value;
+	    	var img_hero=document.getElementById("preview");
+
+	    	if(!Hero_name) 
+	    	{
+	    		alert("请输入英灵名称！！");return;
+	    	}
+	    	if(!img_hero.src) 
+	    	{
+	    		alert("请先上传英灵肖像！！");return;
+	    	}
+	    	img_bg.src="img/fgo/fgo_bg.png";
+	    	img_logo.src="img/fgo/logo_" + Hero_class + ".png";
+	    	preLoadImg(img_bg.src);
+	    	preLoadImg(img_logo.src);
+	    	preLoadImg(img_hero.src);
+	    	img_bg.onload = function()
+	    	{
+	    		content.drawImage(img_hero,0,0,500,730);
+	    		content.drawImage(img_bg,0,0,500,850);
+	    		content.drawImage(img_logo,0,0,500,850);
+	    		/*职介部分*/
+				content.textAlign="center";//是文字居中
+				content.font="50px FGO";
+				content.lineWidth = 4;//描边的宽度
+				content.strokeStyle = "black";//描边的颜色
+				content.strokeText(Hero_class,250,727);
+				content.fillStyle="white";//内部颜色
+				content.fillText(Hero_class,250,727);
+				/*短横线*/
+				content.strokeStyle="white";
+				content.moveTo(100,732);
+				content.lineTo(400,732);
+				content.lineWidth = 2;
+				content.stroke();
+				/*英灵名称*/
+				content.font="25px 隶书";
+				content.strokeStyle = "black";
+				content.lineWidth = 4;//描边的宽度
+				content.strokeText(Hero_name,250,753);
+				content.fillStyle="white";
+				content.fillText(Hero_name,250,753);
+				/*ATK*/
+				content.font="50px FGO";
+				content.strokeStyle = "black";
+				content.strokeText(ATK,130,830);
+				content.fillStyle="white";
+				content.fillText(ATK,130,830);
+				/*HP*/
+				content.strokeStyle = "black";
+				content.strokeText(HP,370,830);
+				content.fillStyle="white";
+				content.fillText(HP,370,830);
+				//画布内有图片存在，故不能直接使用toDataURL()，需考虑CROS
+				dataURL=canvas.toDataURL();
+				document.getElementById('pic_show').src = dataURL;
+			}
+
+
+			// canvas.hidden=null;
+		}
+		function get_zhou()//生成周杰伦样例的函数
+		{
+			clear('myCanvas');
+			document.getElementById("preview").src="img/fgo/zhoutianwang.png";
+			document.getElementById("Hero_class").value="Caster";
+			document.getElementById("Hero_name").value="周杰伦";
+			document.getElementById("ATK").value="12021";
+			document.getElementById("HP").value="15036";
+			get_pic('myCanvas');
+		}
+		function get_lei()//生成蕾姆样例的函数
+		{
+			clear('myCanvas');
+			document.getElementById("preview").src="img/fgo/leimu.png";
+			document.getElementById("Hero_class").value="Berserker";
+			document.getElementById("Hero_name").value="蕾姆";
+			document.getElementById("ATK").value="14046";
+			document.getElementById("HP").value="13098";
+			get_pic('myCanvas');
+		}
+		function clear(id)
+		{
+			var canvas=document.getElementById(id);	
+			var content=canvas.getContext("2d");
+			content.fillStyle="ffffff";
+			content.fillRect(0,0,500,850);
+		}
+	</script>
+</head>
+<body>
+	<div id="main-container" >
+		<h2>自定英灵(￣▽￣)~[]</h2>	
+		英灵的名称：<br><br>
+		<input type="text" id="Hero_name" placeholder="请填入英灵名称" style="max-width:250px; width: 100%"><br><br>
+		英灵的职介：<br><br>
+		<select id="Hero_class" style="max-width:250px; width: 100%">
+			<option value="Saber">Saber</option>
+			<option value="Lancer">Lancer</option>
+			<option value="Archer">Archer</option>
+			<option value="Rider">Rider</option>
+			<option value="Caster">Caster</option>
+			<option value="Assassin">Assassin</option>
+			<option value="Berserker">Berserker</option>
+			<option value="Ruler" selected>Ruler</option>
+			<option value="Avenger">Avenger</option>
+		</select><br><br>
+		ATK &amp; HP：<br><br>
+		ATK：0 <input type="range" id="ATK" min="0" max="29999"> 29999
+		<br>
+		<br>
+		HP：&nbsp; 0 <input type="range" id="HP" min="0" max="29999"> 29999
+		<br>
+		<br>
+		自定义的英灵肖像：<br><br>
+		<input type="file" name="file" onchange="imgPreview(this)" value="上传图片">
+		<br>
+		<br>
+		<a href="#Canvas-position"><button onclick="get_pic('myCanvas')">生成英灵图鉴！</button></a>
+		<br>
+		<p style="font-size: 10pt">Tips:建议上传730*500的图片！以及可能由于网络等原因有bug，多刷几下就行</p>
+		两个例子：
+<!-- 		<a href="#Canvas-position"><button onclick="get_zhou()">生成周天王！</button></a>
+		<a href="#Canvas-position"><button onclick="get_lei()">生成蕾姆！</button></a> -->
+		<img id="preview" hidden="hidden">
+	</div>
+	<div id="Canvas-container">
+		<a name="Canvas-position">
+			<canvas id="myCanvas" width="500" height="850" style="border:1px solid #c3c3c3" hidden="hidden">
+				你的浏览器不支持canvas，请更换浏览器！
+			</canvas>
+			<img id="pic_show">
+		</a>
+	</div>
+</body>
+</html>
