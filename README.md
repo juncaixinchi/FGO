@@ -16,6 +16,7 @@ img.onload = function()
   ......
   }
 ```
+
 2、需要将生成的图片在手机保存，即保存canvas内容，考虑转化为图片，由于画布内有图片，导致
 ```
 Tainted canvases may not be exported
@@ -24,7 +25,13 @@ Tainted canvases may not be exported
 ```html
 img_bg.crossOrigin = '';
 ```
+
 不过重要的一点是，这个需要服务器的配合，否则比如直接打开该html的话会如下报错
 ```
 Access to Image at 'file:///D:/Juncaixinchi/img/fgo/fgo_bg.png' from origin 'null' has been blocked by CORS policy: Invalid response. Origin 'null' is therefore not allowed access.
+```
+最后利用canvas.toDataURL()获得canvas的url然后赋予显示的图片
+```html
+dataURL=canvas.toDataURL();
+document.getElementById('pic_show').src = dataURL;
 ```
