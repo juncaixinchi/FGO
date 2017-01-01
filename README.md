@@ -8,7 +8,7 @@ Tips:建议上传730 * 500的图片！以及可能由于网络等原因有bug，
 
 
 #Notes
-1、主要利用HTML5的Canvas制作，通过content.drawImage()组合图片，但遇到了图片消失的情况，解决方案是利用onload:
+1、主要利用HTML5的Canvas制作，通过content.drawImage()组合图片，但遇到了图片消失的情况，解决方案是利用onload，然后把其他的画图放入function内，不过似乎因为内部有多个content.drawImage()，所以可能还是会有刷不出图片的情况\~\~(>_<)\~\~
 ```html
 img.onload = function()
   {
