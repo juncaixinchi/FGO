@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>自定义英灵-by-俊采新驰</title>
+	<title>自定义FGO英灵-by-俊采新驰</title>
 	<style type="text/css">
 		#main-container
 		{
@@ -76,7 +76,6 @@
 	    	var ATK=document.getElementById("ATK").value;
 	    	var HP=document.getElementById("HP").value;
 	    	var img_hero=document.getElementById("preview");
-
 	    	if(!Hero_name) 
 	    	{
 	    		alert("请输入英灵名称！！");return;
@@ -131,8 +130,6 @@
 				dataURL=canvas.toDataURL();
 				document.getElementById('pic_show').src = dataURL;
 			}
-
-
 			// canvas.hidden=null;
 		}
 		function get_zhou()//生成周杰伦样例的函数
@@ -166,7 +163,7 @@
 </head>
 <body>
 	<div id="main-container" >
-		<h2>自定英灵(￣▽￣)~[]</h2>	
+		<h2>自定义FGO英灵(￣▽￣)~[]</h2>	
 		英灵的名称：<br><br>
 		<input type="text" id="Hero_name" placeholder="请填入英灵名称" style="max-width:250px; width: 100%"><br><br>
 		英灵的职介：<br><br>
@@ -195,18 +192,22 @@
 		<a href="#Canvas-position"><button onclick="get_pic('myCanvas')">生成英灵图鉴！</button></a>
 		<br>
 		<p style="font-size: 10pt">Tips:建议上传730*500的图片！以及可能由于网络等原因有bug，比如职介logo出不来，多刷几下就行</p>
-<!--		两个例子：
+		<!--两个例子：
  		<a href="#Canvas-position"><button onclick="get_zhou()">生成周天王！</button></a>
-		<a href="#Canvas-position"><button onclick="get_lei()">生成蕾姆！</button></a> -->
-		<img id="preview" hidden="hidden">
-	</div>
-	<div id="Canvas-container">
-		<a name="Canvas-position">
-			<canvas id="myCanvas" width="500" height="850" style="border:1px solid #c3c3c3" hidden="hidden">
-				你的浏览器不支持canvas，请更换浏览器！
-			</canvas>
-			<img id="pic_show">
-		</a>
-	</div>
-</body>
-</html>
+ 		<a href="#Canvas-position"><button onclick="get_lei()">生成蕾姆！</button></a> -->
+ 		<img id="preview" hidden="hidden">
+ 	</div>
+ 	<div id="Canvas-container">
+ 		<a name="Canvas-position">
+ 			<canvas id="myCanvas" width="500" height="850" style="border:1px solid #c3c3c3" hidden="hidden">
+ 				你的浏览器不支持canvas，请更换浏览器！
+ 			</canvas>
+ 			<img id="pic_show">
+ 		</a>
+ 	</div>
+ 	
+ 	<div hidden="hidden"><script src="http://s4.cnzz.com/z_stat.php?id=1261118677&web_id=1261118677" language="JavaScript"></script>
+ 		<!-- 使用CNZZ的站长统计 ( ‵▽′)ψ -->
+ 	</div>
+ </body>
+ </html>
