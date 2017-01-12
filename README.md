@@ -2,7 +2,7 @@
 
 自己写的一个自定FGO英灵的小程序(￣▽￣)~[]
 
-作为学习HTML5的联系作品
+作为学习HTML5的练习作品
 
 链接：https://juncaixinchi.github.io/FGO/fgo.html
 
