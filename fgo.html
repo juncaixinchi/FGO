@@ -73,10 +73,8 @@
 	    	var content=canvas.getContext("2d");
 	    	var img_logo=new Image();
 	    	var img_hero=new Image();
-	    	var img_bg=new Image();
 	    	img_logo.crossOrigin = '';
 	    	img_hero.crossOrigin = '';
-	    	img_bg.crossOrigin = '';
 	    	var Hero_class=document.getElementById("Hero_class").value;
 	    	var Hero_name=document.getElementById("Hero_name").value;
 	    	var ATK=document.getElementById("ATK").value;
@@ -90,15 +88,12 @@
 	    	{
 	    		alert("请先上传英灵肖像！！");return;
 	    	}
-	    	img_bg.src="img/fgo/fgo_bg.png";
 	    	img_logo.src="img/fgo/logo_" + Hero_class + ".png";
-	    	preLoadImg(img_bg.src);
 	    	preLoadImg(img_logo.src);
 	    	preLoadImg(img_hero.src);
-	    	img_bg.onload = function()
+	    	img_logo.onload = function()
 	    	{
 	    		content.drawImage(img_hero,0,0,500,730);
-	    		content.drawImage(img_bg,0,0,500,850);
 	    		content.drawImage(img_logo,0,0,500,850);
 	    		/*职介部分*/
 				content.textAlign="center";//是文字居中
@@ -183,6 +178,7 @@
 			<option value="Berserker">Berserker</option>
 			<option value="Ruler" selected>Ruler</option>
 			<option value="Avenger">Avenger</option>
+			<option value="Shielder">Shielder</option>
 		</select><br><br>
 		ATK &amp; HP：<br><br>
 		ATK：0 <input type="range" id="ATK" min="0" max="29999"> 29999
@@ -197,7 +193,7 @@
 		<br>
 		<a href="#Canvas-position"><button onclick="get_pic('myCanvas')">生成英灵图鉴！</button></a>
 		<br>
-		<p style="font-size: 10pt">Tips:建议上传730*500的图片！以及可能由于网络等原因有bug，比如职介logo出不来，多刷几下就行</p>
+		<p style="font-size: 10pt">Tips:建议上传730*500的图片！</p>
 		<!--两个例子：
  		<a href="#Canvas-position"><button onclick="get_zhou()">生成周天王！</button></a>
  		<a href="#Canvas-position"><button onclick="get_lei()">生成蕾姆！</button></a> -->
@@ -212,7 +208,7 @@
  		</a>
  	</div>
  	
- 	<div hidden="hidden"><script src="https://s4.cnzz.com/z_stat.php?id=1261118677&web_id=1261118677" language="JavaScript"></script>
+ 	<div hidden="hidden"><script src="http://s4.cnzz.com/z_stat.php?id=1261118677&web_id=1261118677" language="JavaScript"></script>
  		<!-- 使用CNZZ的站长统计 ( ‵▽′)ψ -->
  	</div>
  </body>
