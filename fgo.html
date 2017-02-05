@@ -132,6 +132,7 @@
 				document.getElementById('pic_show').src = dataURL;
 			}
 			// canvas.hidden=null;
+			resize();
 		}
 		function get_zhou()//生成周杰伦样例的函数
 		{
@@ -160,9 +161,19 @@
 			content.fillStyle="ffffff";
 			content.fillRect(0,0,500,850);
 		}
+		function resize(){
+			width=document.body.clientWidth;
+			if(width<=500)
+			{
+				document.getElementById("pic_show").style.width="100%";
+			}
+			else{
+				document.getElementById("pic_show").style.width="500px";
+			}
+		}
 	</script>
 </head>
-<body>
+<body onresize="resize()">
 	<div id="main-container" >
 		<h2 style="color: green">自定义FGO英灵&nbsp;(￣▽￣)~[]</h2>	
 		英灵的名称：<br><br>
