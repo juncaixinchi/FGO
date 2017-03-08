@@ -76,11 +76,11 @@
     	var img_hero=new Image();
     	img_logo.crossOrigin = '';
     	img_hero.crossOrigin = '';
-    	var Hero_class=document.getElementById("Hero_class").value;
-    	var Hero_rarity=document.getElementById("Hero_rarity").value;
-    	var Hero_name=document.getElementById("Hero_name").value;
-    	var ATK=document.getElementById("ATK").value;
-    	var HP=document.getElementById("HP").value;
+    	var Hero_class=document.getElementById("Hero_class").value || "all";
+    	var Hero_rarity=document.getElementById("Hero_rarity").value || 5;
+    	var Hero_name=document.getElementById("Hero_name").value || "Unknown";
+    	var ATK=document.getElementById("ATK").value || 0;
+    	var HP=document.getElementById("HP").value || 0;
     	var img_hero=document.getElementById("preview");
     	if(!Hero_name) 
     	{
@@ -203,16 +203,17 @@
 		</select><br><br>
 		Class<br><br>
 		<select id="Hero_class" style="max-width:250px; width: 100%">
-			<option value="Saber">Saber</option>
-			<option value="Lancer">Lancer</option>
-			<option value="Archer">Archer</option>
-			<option value="Rider">Rider</option>
-			<option value="Caster">Caster</option>
-			<option value="Assassin">Assassin</option>
-			<option value="Berserker">Berserker</option>
-			<option value="Ruler">Ruler</option>
-			<option value="Avenger">Avenger</option>
-			<option value="Shielder">Shielder</option>
+			<option value="saber">Saber</option>
+			<option value="lancer">Lancer</option>
+			<option value="archer">Archer</option>
+			<option value="rider">Rider</option>
+			<option value="caster">Caster</option>
+			<option value="assassin">Assassin</option>
+			<option value="berserker">Berserker</option>
+			<option value="ruler">Ruler</option>
+			<option value="avenger">Avenger</option>
+			<option value="shielder">Shielder</option>
+			<option value="all">Misc</option>
 		</select><br><br>
 		<div style="text-align: left; display:inline-block; width:50px">ATK：</div><input type="number" id="ATK">
 		<br>
