@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>自定义FGO英灵-by-俊采新驰</title>
+	<title>FGO Card Generator</title>
 	<style type="text/css">
 		body{
 			background: linear-gradient(-45deg, #F2F2F2 25%, #F5F5F5 0, #F5F5F5 50%, #F2F2F2 0, #F2F2F2 75%, #F5F5F5 0);
@@ -43,59 +43,100 @@
 		function imgPreview(fileDom)//上传图片用的函数
 		{
         	//判断是否支持FileReader
-        	if (window.FileReader) {
-        		var reader = new FileReader();
-        	} else {
-        		alert("您的设备不支持上传图片功能，如需该功能请升级您的设备！");
-        	}
-        	//获取文件
-        	var file = fileDom.files[0];
-        	var imageType = /^image\//;
-        	//是否是图片
-        	if (!imageType.test(file.type)) 
-        	{
-        		alert("请选择图片！");
-        		return;
-        	}	
-	        //读取完成
-	        reader.onload = function(e) 
-	        {
-	            //获取图片dom
-	            var img = document.getElementById("preview");
-	            //图片路径设置为读取的图片
-	            img.src = e.target.result;
-	        };
-	        reader.readAsDataURL(file);
-	    }
-	    function get_pic(id)//画出图鉴的函数
-	    {
-	    	var canvas=document.getElementById(id);
-	    	var content=canvas.getContext("2d");
-	    	var img_logo=new Image();
-	    	var img_hero=new Image();
-	    	img_logo.crossOrigin = '';
-	    	img_hero.crossOrigin = '';
-	    	var Hero_class=document.getElementById("Hero_class").value;
-	    	var Hero_name=document.getElementById("Hero_name").value;
-	    	var ATK=document.getElementById("ATK").value;
-	    	var HP=document.getElementById("HP").value;
-	    	var img_hero=document.getElementById("preview");
-	    	if(!Hero_name) 
-	    	{
-	    		alert("请输入英灵名称！！");return;
-	    	}
-	    	if(!img_hero.src) 
-	    	{
-	    		alert("请先上传英灵肖像！！");return;
-	    	}
-	    	img_logo.src="img/fgo/logo_" + Hero_class + ".png";
-	    	preLoadImg(img_logo.src);
-	    	preLoadImg(img_hero.src);
-	    	img_logo.onload = function()
-	    	{
-	    		content.drawImage(img_hero,0,0,500,730);
-	    		content.drawImage(img_logo,0,0,500,850);
-	    		/*职介部分*/
+    	if (window.FileReader) {
+    		var reader = new FileReader();
+    	} else {
+    		alert("Your device doesn't support uploading images.");
+    	}
+    	//获取文件
+    	var file = fileDom.files[0];
+    	var imageType = /^image\//;
+    	//是否是图片
+    	if (!imageType.test(file.type)) 
+    	{
+    		alert("Please upload a picture!");
+    		return;
+    	}	
+      //读取完成
+      reader.onload = function(e) 
+      {
+          //获取图片dom
+          var img = document.getElementById("preview");
+          //图片路径设置为读取的图片
+          img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+    function get_pic(id)//画出图鉴的函数
+    {
+    	var canvas=document.getElementById(id);
+    	var content=canvas.getContext("2d");
+    	var img_logo=new Image();
+    	var img_frame=new Image();
+    	var img_hero=new Image();
+    	img_logo.crossOrigin = '';
+    	img_hero.crossOrigin = '';
+    	var Hero_class=document.getElementById("Hero_class").value;
+    	var Hero_rarity=document.getElementById("Hero_rarity").value;
+    	var Hero_name=document.getElementById("Hero_name").value;
+    	var ATK=document.getElementById("ATK").value;
+    	var HP=document.getElementById("HP").value;
+    	var img_hero=document.getElementById("preview");
+    	if(!Hero_name) 
+    	{
+    		alert("Name is not defined");return;
+    	}
+    	if(!img_hero.src) 
+    	{
+    		alert("Please upload a picture!");return;
+    	}
+    	if (Hero_rarity == 1 || Hero_rarity == 2) {
+    		img_logo.src="img/fgo/" + Hero_class + "1.png";
+    	} else if (Hero_rarity == 3) {
+    		img_logo.src="img/fgo/" + Hero_class + "2.png";
+    	} else {
+    		img_logo.src="img/fgo/" + Hero_class + "3.png";
+    	}
+    	img_frame.src = "img/fgo/S" + Hero_rarity + ".png";
+    	preLoadImg(img_frame.src);
+    	preLoadImg(img_hero.src);
+    	img_frame.onload = function()
+    	{
+    		content.drawImage(img_hero,0,0,500,730);
+        content.drawImage(img_frame,0,0,500,850);
+        switch (Hero_class) {
+          case "Saber":
+            content.drawImage(img_logo,213,753,76,76);
+            break;
+          case "Archer":
+            content.drawImage(img_logo,211,753,76,76);
+            break;
+          case "Lancer":
+            content.drawImage(img_logo,213,753,76,76);
+            break;
+          case "Caster":
+            content.drawImage(img_logo,215,753,76,76);
+            break;
+          case "Assassin":
+            content.drawImage(img_logo,213,751,76,76);
+            break;
+          case "Rider":
+            content.drawImage(img_logo,215,754,76,76);
+            break;
+          case "Berserker":
+            content.drawImage(img_logo,213,751,76,76);
+            break;
+          case "Ruler":
+            content.drawImage(img_logo,213,753,76,76);
+            break;
+          case "Shielder":
+            content.drawImage(img_logo,213,750,76,76);
+            break;
+          case "Avenger":
+            content.drawImage(img_logo,213,752,76,76);
+            break;
+        }
+    		/*职介部分*/
 				content.textAlign="center";//是文字居中
 				content.font="50px FGO";
 				content.lineWidth = 4;//描边的宽度
@@ -134,33 +175,6 @@
 			// canvas.hidden=null;
 			resize();
 		}
-		function get_zhou()//生成周杰伦样例的函数
-		{
-			clear('myCanvas');
-			document.getElementById("preview").src="img/fgo/zhoutianwang.png";
-			document.getElementById("Hero_class").value="Caster";
-			document.getElementById("Hero_name").value="周杰伦";
-			document.getElementById("ATK").value="12021";
-			document.getElementById("HP").value="15036";
-			get_pic('myCanvas');
-		}
-		function get_lei()//生成蕾姆样例的函数
-		{
-			clear('myCanvas');
-			document.getElementById("preview").src="img/fgo/leimu.png";
-			document.getElementById("Hero_class").value="Berserker";
-			document.getElementById("Hero_name").value="蕾姆";
-			document.getElementById("ATK").value="14046";
-			document.getElementById("HP").value="13098";
-			get_pic('myCanvas');
-		}
-		function clear(id)
-		{
-			var canvas=document.getElementById(id);	
-			var content=canvas.getContext("2d");
-			content.fillStyle="ffffff";
-			content.fillRect(0,0,500,850);
-		}
 		function resize(){
 			width=document.body.clientWidth;
 			if(width<=500)
@@ -175,10 +189,19 @@
 </head>
 <body onresize="resize()">
 	<div id="main-container" >
-		<h2 style="color: green">自定义FGO英灵&nbsp;(￣▽￣)~[]</h2>	
-		英灵的名称：<br><br>
-		<input type="text" id="Hero_name" placeholder="请填入英灵名称" style="max-width:250px; width: 100%"><br><br>
-		英灵的职介：<br><br>
+		<div style="font-size: 35px; text-align: center; color: green">FGO Card Generator</div>	
+    <div style="text-align: center; font-size: 15px; padding-bottom: 20px">Original Code by juncaixinchi<br>Expanded by Aister</div>
+		Name<br><br>
+		<input type="text" id="Hero_name" value="Test" placeholder="Name" style="max-width:250px; width: 100%"><br><br>
+		Rarity<br><br>
+		<select id="Hero_rarity" style="max-width:250px; width: 100%">
+		  <option value="1">1 ☆</option>
+		  <option value="2">2 ☆</option>
+		  <option value="3">3 ☆</option>
+		  <option value="4">4 ☆</option>
+		  <option value="5" selected>5 ☆</option>
+		</select><br><br>
+		Class<br><br>
 		<select id="Hero_class" style="max-width:250px; width: 100%">
 			<option value="Saber">Saber</option>
 			<option value="Lancer">Lancer</option>
@@ -191,20 +214,19 @@
 			<option value="Avenger">Avenger</option>
 			<option value="Shielder">Shielder</option>
 		</select><br><br>
-		ATK &amp; HP：<br><br>
-		ATK：0 <input type="range" id="ATK" min="0" max="29999"> 29999
+		<div style="text-align: left; display:inline-block; width:50px">ATK：</div><input type="number" id="ATK">
 		<br>
 		<br>
-		HP：&nbsp; 0 <input type="range" id="HP" min="0" max="29999"> 29999
+		<div style="text-align: left; display:inline-block; width:50px">HP：</div><input type="number" id="HP">
 		<br>
 		<br>
-		自定义的英灵肖像：<br><br>
+		Please upload the photo<br><br>
 		<input type="file" name="file" onchange="imgPreview(this)" value="上传图片">
 		<br>
 		<br>
-		<a href="#Canvas-position"><button onclick="get_pic('myCanvas')">生成英灵图鉴！</button></a>
+		<a href="#Canvas-position"><button onclick="get_pic('myCanvas')">Generate!</button></a>
 		<br>
-		<p style="font-size: 10pt">Tips:建议上传730*500的图片！</p>
+		<p style="font-size: 10pt">Tips: For best result, please use image size of 730 x 500！</p>
 		<!--两个例子：
  		<a href="#Canvas-position"><button onclick="get_zhou()">生成周天王！</button></a>
  		<a href="#Canvas-position"><button onclick="get_lei()">生成蕾姆！</button></a> -->
@@ -213,14 +235,10 @@
  	<div id="Canvas-container">
  		<a name="Canvas-position">
  			<canvas id="myCanvas" width="500" height="850" style="border:1px solid #c3c3c3" hidden="hidden">
- 				你的浏览器不支持canvas，请更换浏览器！
+ 				Your browser doesn't support Canvas, please use a more modern browser!
  			</canvas>
  			<img id="pic_show">
  		</a>
- 	</div>
- 	
- 	<div hidden="hidden"><script src="https://s4.cnzz.com/z_stat.php?id=1261118677&web_id=1261118677" language="JavaScript"></script>
- 		<!-- 使用CNZZ的站长统计 ( ‵▽′)ψ -->
  	</div>
  </body>
  </html>
