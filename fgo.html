@@ -125,9 +125,9 @@
       const HP = document.getElementById("HP").value || 0;
       let y = [727, 732, 753, 830];
       if (CE) {
-      	y = y.map(item => { return item - 120; });
-      	ATK = "+" + ATK;
-      	HP = "+" + HP;
+        y = y.map(item => { return item - 120; });
+        ATK = "+" + ATK;
+        HP = "+" + HP;
       }
       content.textAlign = "center";//是文字居中
       content.font = "50px FGO";
@@ -193,7 +193,6 @@
         }
         img_frame.src = "img/fgo/S" + Hero_rarity + ".png";
         preLoadImg(img_frame.src);
-        preLoadImg(img_logo.src);
         img_frame.onload = function()
         {
           content.drawImage(img_hero,0,0,500,730);
@@ -213,10 +212,13 @@
             "all":       [ 213, 752 ]
           }
 
-          content.drawImage(img_logo,...icon_pos[Hero_class],76,76);
-
-          Hero_class = document.getElementById("Hero_subname").value || Hero_class.slice(0, 1).toUpperCase() + Hero_class.slice(1);
-          put_text(canvas, content, Hero_class, Hero_name, false);
+          preLoadImg(img_logo.src);
+          img_logo.onload = function () {
+            content.drawImage(img_logo,...icon_pos[Hero_class],76,76);
+            Hero_class = Hero_class.slice(0, 1).toUpperCase() + Hero_class.slice(1);
+            Hero_class = document.getElementById("Hero_subname").value || Hero_class;
+            put_text(canvas, content, Hero_class, Hero_name, false);
+          };
         }
       } else {
         const Hero_class = document.getElementById("CE_subname").value || "Unknown";
