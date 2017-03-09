@@ -167,6 +167,9 @@
     function get_pic(id)//画出图鉴的函数
     {
       const canvas = document.getElementById(id);
+      if (!document.getElementById("toggle").checked) {
+      	canvas.setAttribute('height', 730);
+      }
       const content = canvas.getContext("2d");
       content.clearRect(0, 0, canvas.width, canvas.height);
       const img_logo = new Image();
