@@ -124,7 +124,11 @@
       const ATK = document.getElementById("ATK").value || 0;
       const HP = document.getElementById("HP").value || 0;
       let y = [727, 732, 753, 830];
-      if (CE) y = y.map(item => { return item - 120; });
+      if (CE) {
+      	y = y.map(item => { return item - 120; });
+      	ATK = "+" + ATK;
+      	HP = "+" + HP;
+      }
       content.textAlign = "center";//是文字居中
       content.font = "50px FGO";
       content.lineWidth = 4;//描边的宽度
@@ -189,6 +193,7 @@
         }
         img_frame.src = "img/fgo/S" + Hero_rarity + ".png";
         preLoadImg(img_frame.src);
+        preLoadImg(img_logo.src);
         img_frame.onload = function()
         {
           content.drawImage(img_hero,0,0,500,730);
