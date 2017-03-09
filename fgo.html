@@ -121,8 +121,8 @@
       reader.readAsDataURL(file);
     }
     function put_text(canvas, content, Hero_class, Hero_name, CE) {
-      const ATK = document.getElementById("ATK").value || 0;
-      const HP = document.getElementById("HP").value || 0;
+      let ATK = document.getElementById("ATK").value || 0;
+      let HP = document.getElementById("HP").value || 0;
       let y = [727, 732, 753, 830];
       if (CE) {
         y = y.map(item => { return item - 120; });
