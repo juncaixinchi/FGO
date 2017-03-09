@@ -47,6 +47,7 @@
       cursor: pointer;
       outline: none;
       user-select: none;
+      margin-bottom: 20px;
     }
     .toggle + label:before, .toggle + label:after {
       display: block;
@@ -73,16 +74,19 @@
       backface-visibility: hidden;
       color: black;
     }
+    #gold + label { border: 1px solid #cacaca; }
+    #gold + label:after { background: white; color: black; }
+    #gold + label:before { background: #ffeb04; }
     .toggle:checked + label:before {
       transform: rotateY(180deg);
     }
     .toggle:checked + label:after {
       transform: rotateY(0deg);
     }
-    .toggle:checked + label + br + div, .toggle + label + br + div + div {
+    .toggle_show:checked + label + div, .toggle_show + label + div + div {
       display: none;
     }
-    .toggle:checked + label + br + div + div, .toggle + label + br + div {
+    .toggle_show:checked + label + div + div, .toggle_show + label + div {
       display: block;
     }
   </style>
@@ -143,7 +147,7 @@
       content.lineWidth = 2;
       content.stroke();
       /*英灵名称*/
-      content.font = "22px 隶书";
+      content.font = "22px FGO";
       content.strokeStyle = "black";
       content.lineWidth = 3;//描边的宽度
       content.strokeText(Hero_name,250,y[2]);
@@ -153,12 +157,23 @@
       content.font = "50px FGO";
       content.strokeStyle = "black";
       content.strokeText(ATK,130,y[3]);
-      content.fillStyle = "white";
+      let my_gradient = content.createLinearGradient(0,y[3] - 50 ,0,y[3]);
+      if (!CE && !document.getElementById('gold').checked) {
+        my_gradient.addColorStop(0.5,"#ffeb04");
+        my_gradient.addColorStop(0.6,"#b1a300");
+        my_gradient.addColorStop(1,"#ffeb04");
+
+      } else {
+        my_gradient.addColorStop(0.5,"white");
+        my_gradient.addColorStop(0.6,"#8f8f8f");
+        my_gradient.addColorStop(1,"white");
+      }
+      content.fillStyle = my_gradient;
       content.fillText(ATK,130,y[3]);
       /*HP*/
       content.strokeStyle = "black";
       content.strokeText(HP,370,y[3]);
-      content.fillStyle = "white";
+      content.fillStyle = my_gradient;
       content.fillText(HP,370,y[3]);
       //画布内有图片存在，故不能直接使用toDataURL()，需考虑CROS
       dataURL = canvas.toDataURL();
@@ -168,7 +183,7 @@
     {
       const canvas = document.getElementById(id);
       if (!document.getElementById("toggle").checked) {
-      	canvas.setAttribute('height', 730);
+        canvas.setAttribute('height', 730);
       }
       const content = canvas.getContext("2d");
       content.clearRect(0, 0, canvas.width, canvas.height);
@@ -271,8 +286,8 @@
     <br>
     <div id="switch">
       Card Type<br><br>  
-      <input id="toggle" class="toggle toggle-yes-no" checked="checked" type="checkbox" value="1">
-      <label for="toggle" data-on="Servant (Click to switch)" data-off="Craft Essences (Click to switch)"></label><br>
+      <input id="toggle" class="toggle toggle_show" checked="checked" type="checkbox" value="1">
+      <label for="toggle" data-on="Servant (Click to switch)" data-off="Craft Essences (Click to switch)"></label>
       <div>
         Name<br><br>
         <input type = "text" id = "CE_name" placeholder = "Name" style = "max-width:250px; width: 100%"><br><br>
@@ -280,6 +295,9 @@
         <input type = "text" id = "CE_subname" placeholder = "Class Name" style = "max-width:250px; width: 100%"><br><br>
       </div>
       <div>
+        Number Color<br><br>
+        <input id="gold" class="toggle" checked="checked" type="checkbox" value="1">
+        <label for="gold" data-on="White (Click to switch)" data-off="Gold (Click to switch)"></label>
         Name<br><br>
         <input type = "text" id = "Hero_name" placeholder = "Name" style = "max-width:250px; width: 100%"><br><br>
         Class Name<br><br>
