@@ -91,35 +91,35 @@
     }
   </style>
   <script type = "text/javascript">
-    function preLoadImg(url) //图片预下载用的函数
+    function preLoadImg(url) 
     { 
       const img = new Image(); 
       img.src = url;
     } 
-    function imgPreview(fileDom)//上传图片用的函数
+    function imgPreview(fileDom)
     {
-          //判断是否支持FileReader
+          
       let reader;
       if (window.FileReader) {
         reader = new FileReader();
       } else {
         alert("Your device doesn't support uploading images.");
       }
-      //获取文件
+      
       const file = fileDom.files[0];
-      const imageType = /^image\//;
-      //是否是图片
+      const imageType = /^image\//g;
+      
       if (!imageType.test(file.type)) 
       {
         alert("Please upload a picture!");
         return;
       } 
-      //读取完成
+      
       reader.onload = function(e) 
       {
-          //获取图片dom
+          
           const img = document.getElementById("preview");
-          //图片路径设置为读取的图片
+          
           img.src = e.target.result;
       };
       reader.readAsDataURL(file);
@@ -133,27 +133,27 @@
         ATK = "+" + ATK;
         HP = "+" + HP;
       }
-      content.textAlign = "center";//是文字居中
+      content.textAlign = "center";
       content.font = "50px FGO";
-      content.lineWidth = 4;//描边的宽度
-      content.strokeStyle = "black";//描边的颜色
+      content.lineWidth = 4;
+      content.strokeStyle = "black";
       content.strokeText(Hero_class,250,y[0]);
-      content.fillStyle = "white";//内部颜色
+      content.fillStyle = "white";
       content.fillText(Hero_class,250,y[0]);
-      /*短横线*/
+      
       content.strokeStyle = "white";
       content.moveTo(100,y[1]);
       content.lineTo(400,y[1]);
       content.lineWidth = 2;
       content.stroke();
-      /*英灵名称*/
+      
       content.font = "22px FGO";
       content.strokeStyle = "black";
-      content.lineWidth = 3;//描边的宽度
+      content.lineWidth = 3;
       content.strokeText(Hero_name,250,y[2]);
       content.fillStyle = "white";
       content.fillText(Hero_name,250,y[2]);
-      /*ATK*/
+      
       content.font = "50px FGO";
       content.strokeStyle = "black";
       content.strokeText(ATK,130,y[3]);
@@ -170,16 +170,16 @@
       }
       content.fillStyle = my_gradient;
       content.fillText(ATK,130,y[3]);
-      /*HP*/
+      
       content.strokeStyle = "black";
       content.strokeText(HP,370,y[3]);
       content.fillStyle = my_gradient;
       content.fillText(HP,370,y[3]);
-      //画布内有图片存在，故不能直接使用toDataURL()，需考虑CROS
+      
       dataURL = canvas.toDataURL();
       document.getElementById('pic_show').src = dataURL;
     }
-    function get_pic(id)//画出图鉴的函数
+    function get_pic(id)
     {
       const canvas = document.getElementById(id);
       if (!document.getElementById("toggle").checked) {
@@ -250,8 +250,8 @@
           put_text(canvas, content, Hero_name, Hero_class, true);
         }
       }
-        /*职介部分*/
-      // canvas.hidden = null;
+        
+      
       resize();
     }
     function resize(){
