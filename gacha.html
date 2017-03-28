@@ -87,7 +87,7 @@ function roll10 (ctx, data) {
     <canvas id = "result10" width = "645" height = "444" style = "display: none;">
       Your browser doesn't support Canvas, please use a more modern browser!
     </canvas>
-    <canvas id = "result1" width = "645" height = "444" style = "display: none;">
+    <canvas id = "result1" width = "129" height = "222" style = "display: none; margin: 0 auto">
       Your browser doesn't support Canvas, please use a more modern browser!
     </canvas>
   </div>
@@ -142,7 +142,7 @@ $.getJSON('https://raw.githubusercontent.com/aister/nobuDB/master/gacha_event.js
             data.ce[i] = data.ce[i].concat(event[pickedEvent].ce[i]);
         }
       }
-      roll1(ctx, data, [258, 0]).then((results) => {
+      roll1(ctx, data, [0, 0]).then((results) => {
         console.log(results);
         $("#result1").css('display', 'block');
       });
