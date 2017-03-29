@@ -32,6 +32,11 @@ body {
   background: #8282e8;
   padding: 10px 0;
 }
+#rate {
+  text-align: center;
+  width: 300px;
+  margin: 0 auto;
+}
 </style>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
 <script>
@@ -72,8 +77,39 @@ function roll10 (ctx, data) {
 </head>
 <body>
 <div id="main">
+  <div style="text-align: center;">
+    <div style="font-weight: bold; font-size: 20px; margin-bottom: 10px">FGO Gacha Simulator</div>
+    <div style="margin-bottom: 30px">By Aister</div>
+  </div>
+  <div id="rate">
+    <div style="font-weight: bold; font-size: 20px; margin-bottom: 5px">Roll rate</div>
+    <table style="width: 100%; padding: 5px; margin: 0 auto; text-align: center; background: #e6e6e6">
+      <tr>
+        <td></td>
+        <td style="font-weight: bold">Servant</td>
+        <td style="font-weight: bold">CE</td>
+      </tr>
+      <tr>
+        <td>5★</td>
+        <td>1%</td>
+        <td>4%</td>
+      </tr>
+      <tr>
+        <td>4★</td>
+        <td>3%</td>
+        <td>12%</td>
+      </tr>
+      <tr>
+        <td>3★</td>
+        <td>40%</td>
+        <td>40%</td>
+      </tr>
+    </table>
+  </div>
+  <div style="clear: both"></div>
+  <div style="text-align: center; margin: 20px 0"><span style="font-weight: bold">Note:</span> Pick up rate and guaranteed cards are not considered</div>
   <select id="event">
-    <option value="0">No event</option>
+    <option value="0">Default roll</option>
   </select>
   <div id="desc">
     Default roll, story servants are not included.
@@ -98,7 +134,8 @@ $.getJSON('https://raw.githubusercontent.com/aister/nobuDB/master/gacha_event.js
    $("#event").append('<option value="' + (i + 1) + '">' + item.name + '</option>');
   });
   $("#event").change(() => {
-    $("#desc").html(event[parseInt($("#event").val()) - 1].desc.replace(/\n/g, "<br>"));
+    if (parseInt($("#event").val())) $("#desc").html(event[parseInt($("#event").val()) - 1].desc.replace(/\n/g, "<br>"));
+    else $("#desc").html("Default roll, story servants are not included.");
   })
   $("#roll").css("display", "block");
   $("#roll10").click(() => {
