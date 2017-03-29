@@ -129,7 +129,6 @@
       let HP = document.getElementById("HP").value || 0;
       let y = [727, 732, 753, 830];
       if (CE) {
-        y = y.map(item => { return item - 120; });
         ATK = "+" + ATK;
         HP = "+" + HP;
       }
@@ -182,9 +181,6 @@
     function get_pic(id)
     {
       const canvas = document.getElementById(id);
-      if (!document.getElementById("toggle").checked) {
-        canvas.setAttribute('height', 730);
-      }
       const content = canvas.getContext("2d");
       content.clearRect(0, 0, canvas.width, canvas.height);
       const img_logo = new Image();
@@ -245,8 +241,8 @@
         preLoadImg(img_frame.src);
         img_frame.onload = function()
         {
-          content.drawImage(img_hero,0,0,500,730);
-          content.drawImage(img_frame,0,0,500,730);
+          content.drawImage(img_hero,0,0,500,850);
+          content.drawImage(img_frame,0,0,500,850);
           put_text(canvas, content, Hero_name, Hero_class, true);
         }
       }
