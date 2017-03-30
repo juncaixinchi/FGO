@@ -10,6 +10,7 @@
 
 
 #Notes
+
 1、主要利用HTML5的Canvas制作，通过content.drawImage()组合图片，但遇到了图片消失的情况
 
 解决方案是利用onload，然后把其他的画图放入function内，不过似乎因为内部有多个content.drawImage()

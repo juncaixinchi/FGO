@@ -28,6 +28,7 @@
       max-width: 500px;
       width: 100%;
       margin: 0 auto;
+      overflow: hidden;
     }
     @font-face {
       font-family: FGO;
@@ -203,6 +204,7 @@
       }
       preLoadImg(img_hero.src);
       if (document.getElementById("toggle").checked) {
+        document.getElementById("Canvas-container").style.borderRadius = null;
         let Hero_class = document.getElementById("Hero_class").value || "all";
         const Hero_name = document.getElementById("Hero_name").value || "没名字的家伙";
         if (Hero_rarity == 1 || Hero_rarity == 2) {
@@ -244,8 +246,7 @@
       } else {
         const Hero_class = document.getElementById("CE_subname").value || "Unknown";
         const Hero_name = document.getElementById("CE_name").value || "无名";
-        document.getElementById("Canvas-container").borderRadius='50px';
-        document.getElementById("Canvas-container").overflow='hidden';
+        document.getElementById("Canvas-container").style.borderRadius='30px';
         img_frame.src = "img/fgo/CE" + Hero_rarity + ".png";
         preLoadImg(img_frame.src);
         img_frame.onload = function()
