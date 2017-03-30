@@ -3,7 +3,7 @@
 <head>
   <meta charset = "utf-8">
   <meta name = "viewport" content = "width = device-width, initial-scale = 1">
-  <title>FGO Card Generator</title>
+  <title>FGO卡牌生成器</title>
   <style type = "text/css">
     body{
       background: linear-gradient(-45deg, #F2F2F2 25%, #F5F5F5 0, #F5F5F5 50%, #F2F2F2 0, #F2F2F2 75%, #F5F5F5 0);
@@ -75,8 +75,8 @@
       color: black;
     }
     #gold + label { border: 1px solid #cacaca; }
-    #gold + label:after { background: white; color: black; }
-    #gold + label:before { background: #ffeb04; }
+    #gold + label:after { background: #ffeb04; color: black; }
+    #gold + label:before { background: white; }
     .toggle:checked + label:before {
       transform: rotateY(180deg);
     }
@@ -111,7 +111,7 @@
       
       if (!imageType.test(file.type)) 
       {
-        alert("Please upload a picture!");
+        alert("请上传一张图片！");
         return;
       } 
       
@@ -133,7 +133,7 @@
         HP = "+" + HP;
       }
       content.textAlign = "center";
-      content.font = "50px FGO";
+      content.font = "50px FGO, 隶书, sans-serif"
       content.lineWidth = 4;
       content.strokeStyle = "black";
       content.strokeText(Hero_class,250,y[0]);
@@ -146,22 +146,22 @@
       content.lineWidth = 2;
       content.stroke();
       
-      content.font = "22px FGO";
+      content.font = "22px FGO, 隶书, sans-serif"
       content.strokeStyle = "black";
       content.lineWidth = 3;
       content.strokeText(Hero_name,250,y[2]);
       content.fillStyle = "white";
       content.fillText(Hero_name,250,y[2]);
-      
-      content.font = "50px FGO";
+
+
+      content.font= "50px FGO, 隶书, sans-serif"
       content.strokeStyle = "black";
       content.strokeText(ATK,130,y[3]);
       let my_gradient = content.createLinearGradient(0,y[3] - 50 ,0,y[3]);
-      if (!CE && !document.getElementById('gold').checked) {
+      if (!CE && document.getElementById('gold').checked) {
         my_gradient.addColorStop(0.5,"#ffeb04");
         my_gradient.addColorStop(0.6,"#b1a300");
         my_gradient.addColorStop(1,"#ffeb04");
-
       } else {
         my_gradient.addColorStop(0.5,"white");
         my_gradient.addColorStop(0.6,"#8f8f8f");
@@ -178,6 +178,13 @@
       dataURL = canvas.toDataURL();
       document.getElementById('pic_show').src = dataURL;
     }
+    function get_pic_twice(id)
+    {
+      get_pic(id);
+      setTimeout(function () {
+        return get_pic(id);
+      }, 500);
+    }
     function get_pic(id)
     {
       const canvas = document.getElementById(id);
@@ -190,14 +197,14 @@
       img_hero.crossOrigin = '';
       const Hero_rarity = document.getElementById("Hero_rarity").value || 5;
       img_hero = document.getElementById("preview");
-      if(!img_hero.src) 
+      if(!img_hero.src)
       {
-        alert("Please upload a picture!"); return;
+        alert("请先上传一张图片！"); return;
       }
       preLoadImg(img_hero.src);
       if (document.getElementById("toggle").checked) {
         let Hero_class = document.getElementById("Hero_class").value || "all";
-        const Hero_name = document.getElementById("Hero_name").value || "Unknown";
+        const Hero_name = document.getElementById("Hero_name").value || "没名字的家伙";
         if (Hero_rarity == 1 || Hero_rarity == 2) {
           img_logo.src = "img/fgo/" + Hero_class + "1.png";
         } else if (Hero_rarity == 3) {
@@ -230,13 +237,15 @@
           img_logo.onload = function () {
             content.drawImage(img_logo,...icon_pos[Hero_class],76,76);
             Hero_class = Hero_class.slice(0, 1).toUpperCase() + Hero_class.slice(1);
-            Hero_class = document.getElementById("Hero_subname").value || Hero_class;
+            // Hero_class = document.getElementById("Hero_subname").value || Hero_class;
             put_text(canvas, content, Hero_class, Hero_name, false);
           };
         }
       } else {
         const Hero_class = document.getElementById("CE_subname").value || "Unknown";
-        const Hero_name = document.getElementById("CE_name").value || "Unknown";
+        const Hero_name = document.getElementById("CE_name").value || "无名";
+        document.getElementById("Canvas-container").borderRadius='50px';
+        document.getElementById("Canvas-container").overflow='hidden';
         img_frame.src = "img/fgo/CE" + Hero_rarity + ".png";
         preLoadImg(img_frame.src);
         img_frame.onload = function()
@@ -245,9 +254,7 @@
           content.drawImage(img_frame,0,0,500,850);
           put_text(canvas, content, Hero_name, Hero_class, true);
         }
-      }
-        
-      
+      }  
       resize();
     }
     function resize(){
@@ -264,41 +271,44 @@
 </head>
 <body onresize = "resize()">
   <div id = "main-container" >
-    <div style = "font-size: 35px; text-align: center; color: green">FGO Card Generator</div> 
-    <div style = "text-align: center; font-size: 15px; padding-bottom: 20px">Original Code by juncaixinchi<br>Expanded by Aister</div>
-    Rarity<br><br>
+    <div style = "font-size: 35px; text-align: center; color: green">FGO卡牌生成器</div>
+    <br>
+    <div style = "text-align: center; font-size: 15px; padding-bottom: 20px">
+    感谢Aister的贡献，<a href="https://aister.github.io/FGO/fgo.html">English Version</a>
+    </div>
+    星级
+    <br>
+    <br>
     <select id = "Hero_rarity" style = "max-width:250px; width: 100%">
       <option value = "1">1 ☆</option>
       <option value = "2">2 ☆</option>
       <option value = "3">3 ☆</option>
       <option value = "4">4 ☆</option>
-      <option value = "5">5 ☆</option>
+      <option value = "5" selected>5 ☆</option>
     </select><br><br>
-    <div style = "text-align: left; display:inline-block; width:50px">ATK：</div><input type = "number" id = "ATK">
+    <div style = "text-align: left; display:inline-block; width:50px">ATK：</div><input type = "number" id = "ATK" value= "10000">
     <br>
     <br>
-    <div style = "text-align: left; display:inline-block; width:50px">HP：</div><input type = "number" id = "HP">
+    <div style = "text-align: left; display:inline-block; width:50px">HP：</div><input type = "number" id = "HP" value= "10000">
     <br>
     <br>
     <div id="switch">
-      Card Type<br><br>  
+      卡牌类型<br><br>  
       <input id="toggle" class="toggle toggle_show" checked="checked" type="checkbox" value="1">
-      <label for="toggle" data-on="Servant (Click to switch)" data-off="Craft Essences (Click to switch)"></label>
+      <label for="toggle" data-on="英灵（点击转换）" data-off="礼装（点击转换）"></label>
       <div>
-        Name<br><br>
-        <input type = "text" id = "CE_name" placeholder = "Name" style = "max-width:250px; width: 100%"><br><br>
-        Sub Name<br><br>
-        <input type = "text" id = "CE_subname" placeholder = "Class Name" style = "max-width:250px; width: 100%"><br><br>
+        礼装名称<br><br>
+        <input type = "text" id = "CE_name" placeholder = "礼装名称" style = "max-width:250px; width: 100%"><br><br>
+        类型<br><br>
+        <input type = "text" id = "CE_subname" placeholder = "小名称" value= "概念礼装" style = "max-width:250px; width: 100%"><br><br>
       </div>
       <div>
-        Number Color<br><br>
-        <input id="gold" class="toggle" checked="checked" type="checkbox" value="1">
-        <label for="gold" data-on="White (Click to switch)" data-off="Gold (Click to switch)"></label>
-        Name<br><br>
-        <input type = "text" id = "Hero_name" placeholder = "Name" style = "max-width:250px; width: 100%"><br><br>
-        Class Name<br><br>
-        <input type = "text" id = "Hero_subname" placeholder = "Sub Name" style = "max-width:250px; width: 100%"><br><br>
-        Class Icon<br><br>
+        数字的颜色<br><br>
+        <input id="gold" class="toggle" checked="checked" type="checkbox" value="0">
+        <label for="gold" data-on="金色（点击转换）" data-off="白色（点击转换）"></label>
+        英灵名称<br><br>
+        <input type = "text" id = "Hero_name" placeholder = "英灵名称" style = "max-width:250px; width: 100%"><br><br>
+        英灵职介<br><br>
         <select id = "Hero_class" style = "max-width:250px; width: 100%">
           <option value = "saber">Saber</option>
           <option value = "lancer">Lancer</option>
@@ -314,16 +324,13 @@
         </select><br><br>
       </div>
     </div>
-    Please upload the photo<br><br>
+    请上传图片<br><br>
     <input type = "file" name = "file" onchange = "imgPreview(this)" value = "上传图片">
     <br>
     <br>
-    <a href = "#Canvas-position"><button onclick = "get_pic('myCanvas')">Generate!</button></a>
+    <a href = "#Canvas-position"><button onclick = "get_pic_twice('myCanvas')">生成!</button></a>
     <br>
-    <p style = "font-size: 10pt">Tips: For best result, please use image size of 730 x 500！</p>
-    <!--两个例子：
-    <a href = "#Canvas-position"><button onclick = "get_zhou()">生成周天王！</button></a>
-    <a href = "#Canvas-position"><button onclick = "get_lei()">生成蕾姆！</button></a> -->
+    <p style = "font-size: 10pt">Tips: 为最佳效果，请上传730 x 500的图片！</p>
     <img id = "preview" hidden = "hidden">
   </div>
   <div id = "Canvas-container">
@@ -333,6 +340,9 @@
       </canvas>
       <img id = "pic_show">
     </a>
+  </div>
+  <div hidden="hidden"><script src="http://s4.cnzz.com/z_stat.php?id=1261118677&web_id=1261118677" language="JavaScript"></script>
+    <!-- 使用CNZZ的站长统计 ( ‵▽′)ψ -->
   </div>
  </body>
  </html>
