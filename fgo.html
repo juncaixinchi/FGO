@@ -70,6 +70,7 @@
       backface-visibility: hidden;
     }
     .toggle + label:before {
+      position: absolute;
       background-color: #dddddd;
       content: attr(data-off);
       transition: transform 0.5s;
@@ -78,7 +79,7 @@
     }
     #gold + label { border: 1px solid #cacaca; }
     #gold + label:after { background: #ffeb04; color: black; }
-    #gold + label:before { background: white; }
+    #gold + label:before { background: white; position: absolute;}
     .toggle:checked + label:before {
       -webkit-transform: rotateY(180deg);
       transform: rotateY(180deg);
