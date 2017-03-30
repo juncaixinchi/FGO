@@ -65,6 +65,7 @@
       background-color: #1abc9c;
       content: attr(data-on);
       transition: transform 0.5s;
+      -webkit-transform: rotateY(180deg);
       transform: rotateY(180deg);
       backface-visibility: hidden;
     }
@@ -79,9 +80,11 @@
     #gold + label:after { background: #ffeb04; color: black; }
     #gold + label:before { background: white; }
     .toggle:checked + label:before {
+      -webkit-transform: rotateY(180deg);
       transform: rotateY(180deg);
     }
     .toggle:checked + label:after {
+      -webkit-transform: rotateY(0deg);
       transform: rotateY(0deg);
     }
     .toggle_show:checked + label + div, .toggle_show + label + div + div {
