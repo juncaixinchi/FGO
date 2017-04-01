@@ -1,14 +1,47 @@
-# Aister's FGO + Canvas project
-Several projects that experiment on HTML5 canvas
+# FGO
 
-## Card generator
+自己写的一个自定FGO英灵的小程序(￣▽￣)~[]
 
-An expansion of juncaixinchi's original concept of using canvas to generate FGO cards. The generator itself can be found [here](https://aister.github.io/FGO/fgo.html)
+作为学习HTML5的练习作品
 
-Original code can be found [here](https://github.com/juncaixinchi/FGO)
+链接：https://juncaixinchi.github.io/FGO/fgo.html
 
-## Gacha Simulator
+感谢 [Aister](https://github.com/aister/FGO)对程序的优化，这是英文版：[English Version](https://aister.github.io/FGO/fgo.html)
 
-Using canvas to generate gacha. Could have used simple img tbh
 
-Link: [https://aister.github.io/FGO/gacha.html](https://aister.github.io/FGO/gacha.html)
+#Notes
+
+1、主要利用HTML5的Canvas制作，通过content.drawImage()组合图片，但遇到了图片消失的情况
+
+解决方案是利用onload，然后把其他的画图放入function内，不过似乎因为内部有多个content.drawImage()
+
+所以可能还是会有刷不出图片的情况，可强行改为两个content.drawImage()解决问题
+
+但组成图片必须很多时，只好使用“点击一次，后台生成两次”的方式
+
+```html
+img.onload = function()
+  {
+  content.drawImage();
+  ......
+  }
+```
+
+2、需要将生成的图片在手机保存，即保存canvas内容，考虑转化为图片，由于画布内有图片，导致
+```
+Tainted canvases may not be exported
+```
+而不能直接使用toDataURL()，后利用修改CROS解决
+```html
+img_bg.crossOrigin = '';
+```
+
+不过重要的一点是，这个需要服务器的配合，否则比如直接打开该html的话会如下报错
+```
+Access to Image at 'file:///D:/Juncaixinchi/img/fgo/fgo_bg.png' from origin 'null' has been blocked by CORS policy: Invalid response. Origin 'null' is therefore not allowed access.
+```
+最后利用canvas.toDataURL()获得canvas的url然后赋予显示的图片
+```html
+dataURL=canvas.toDataURL();
+document.getElementById('pic_show').src = dataURL;
+```
