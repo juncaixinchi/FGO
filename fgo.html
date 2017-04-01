@@ -258,14 +258,11 @@
         const Hero_class = document.getElementById("CE_subname").value || "Unknown";
         const Hero_name = document.getElementById("CE_name").value || "无名";
         document.getElementById("Canvas-container").style.borderRadius='30px';
-        img_frame.src = "img/fgo/CE" + Hero_rarity + ".png";
-        preLoadImg(img_frame.src);
-        img_frame.onload = function()
-        {
+        preLoadImg(img_frame, "img/fgo/CE" + Hero_rarity + ".png").then(() => {
           content.drawImage(img_hero,0,0,500,850);
           content.drawImage(img_frame,0,0,500,850);
           put_text(canvas, content, Hero_name, Hero_class, true);
-        }
+        });
       }  
       resize();
     }
