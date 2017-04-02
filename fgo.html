@@ -104,7 +104,7 @@
   <script type = "text/javascript">
     function preLoadImg(img, url) 
     { 
-      return new Promise((resolve, reject) => {
+      return new Promise(function (resolve, reject) {
         img.src = url;
         img.onload = resolve;
         img.onerror = reject;
@@ -113,15 +113,15 @@
     function imgPreview(fileDom)
     {
           
-      let reader;
+      var reader;
       if (window.FileReader) {
         reader = new FileReader();
       } else {
         alert("Your device doesn't support uploading images.");
       }
       
-      const file = fileDom.files[0];
-      const imageType = /^image\//g;
+      var file = fileDom.files[0];
+      var imageType = /^image\//g;
       
       if (!imageType.test(file.type)) 
       {
@@ -132,16 +132,16 @@
       reader.onload = function(e) 
       {
           
-          const img = document.getElementById("preview");
+          var img = document.getElementById("preview");
           
           img.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
     function put_text(canvas, content, Hero_class, Hero_name, CE) {
-      let ATK = document.getElementById("ATK").value || 0;
-      let HP = document.getElementById("HP").value || 0;
-      let y = [727, 732, 753, 830];
+      var ATK = document.getElementById("ATK").value || 0;
+      var HP = document.getElementById("HP").value || 0;
+      var y = [727, 732, 753, 830];
       if (CE) {
         ATK = "+" + ATK;
         HP = "+" + HP;
@@ -171,7 +171,7 @@
       content.font= "50px FGO, 隶书, sans-serif"
       content.strokeStyle = "black";
       content.strokeText(ATK,130,y[3]);
-      let my_gradient = content.createLinearGradient(0,y[3] - 50 ,0,y[3]);
+      var my_gradient = content.createLinearGradient(0,y[3] - 50 ,0,y[3]);
       if (!CE && document.getElementById('gold').checked) {
         my_gradient.addColorStop(0.5,"#ffeb04");
         my_gradient.addColorStop(0.6,"#b1a300");
@@ -191,9 +191,13 @@
       
       dataURL = canvas.toDataURL();
       document.getElementById('pic_show').src = dataURL;
+      console.log(Date.now() - time);
+      time = Date.now();
     }
+    time = 0;
     function get_pic_twice(id)
     {
+      time = Date.now();
       get_pic(id);
       setTimeout(function () {
         return get_pic(id);
@@ -201,17 +205,17 @@
     }
     function get_pic(id)
     {
-      const canvas = document.getElementById(id);
-      const content = canvas.getContext("2d");
+      var canvas = document.getElementById(id);
+      var content = canvas.getContext("2d");
       content.clearRect(0, 0, canvas.width, canvas.height);
-      const img_logo = new Image();
-      const img_frame = new Image();
-      let img_hero = new Image();
-      let logo = "";
-      let frame = "";
+      var img_logo = new Image();
+      var img_frame = new Image();
+      var img_hero = new Image();
+      var logo = "";
+      var frame = "";
       img_logo.crossOrigin = '';
       img_hero.crossOrigin = '';
-      const Hero_rarity = document.getElementById("Hero_rarity").value || 5;
+      var Hero_rarity = document.getElementById("Hero_rarity").value || 5;
       img_hero = document.getElementById("preview");
       if(!img_hero.src)
       {
@@ -219,8 +223,8 @@
       }
       if (document.getElementById("toggle").checked) {
         document.getElementById("Canvas-container").style.borderRadius = null;
-        let Hero_class = document.getElementById("Hero_class").value || "all";
-        const Hero_name = document.getElementById("Hero_name").value || "没名字的家伙";
+        var Hero_class = document.getElementById("Hero_class").value || "all";
+        var Hero_name = document.getElementById("Hero_name").value || "没名字的家伙";
         if (Hero_rarity == 1 || Hero_rarity == 2) {
           logo = "img/fgo/" + Hero_class + "1.png";
         } else if (Hero_rarity == 3) {
@@ -229,7 +233,7 @@
           logo = "img/fgo/" + Hero_class + "3.png";
         }
         frame = "img/fgo/S" + Hero_rarity + ".png";
-        const icon_pos = {
+        var icon_pos = {
           "saber":     [ 213, 753 ],
           "archer":    [ 211, 753 ],
           "lancer":    [ 213, 753 ],
@@ -242,23 +246,27 @@
           "avenger":   [ 213, 752 ],
           "all":       [ 213, 752 ]
         }
-        const promiseAll = [
+        var promiseAll = [
           preLoadImg(img_hero, img_hero.src),
           preLoadImg(img_frame, frame),
           preLoadImg(img_logo, logo)
         ];
-        Promise.all(promiseAll).then(() => {
+        Promise.all(promiseAll).then(function () {
           content.drawImage(img_hero,0,0,500,730);
           content.drawImage(img_frame,0,0,500,850);
-          content.drawImage(img_logo,...icon_pos[Hero_class],76,76);
+          content.drawImage(img_logo,icon_pos[Hero_class][0], icon_pos[Hero_class][1],76,76);
           Hero_class = Hero_class.slice(0, 1).toUpperCase() + Hero_class.slice(1);
           put_text(canvas, content, Hero_class, Hero_name, false);
         });
       } else {
-        const Hero_class = document.getElementById("CE_subname").value || "Unknown";
-        const Hero_name = document.getElementById("CE_name").value || "无名";
-        document.getElementById("Canvas-container").style.borderRadius='30px';
-        preLoadImg(img_frame, "img/fgo/CE" + Hero_rarity + ".png").then(() => {
+        var Hero_class = document.getElementById("CE_subname").value || "Unknown";
+        var Hero_name = document.getElementById("CE_name").value || "无名";
+        document.getElementById("Canvas-container").style.bordexrRadius='30px';
+        var promiseAll = [
+          preLoadImg(img_hero, img_hero.src),
+          preLoadImg(img_frame, "img/fgo/CE" + Hero_rarity + ".png")
+        ];
+        Promise.all(promiseAll).then(function () {
           content.drawImage(img_hero,0,0,500,850);
           content.drawImage(img_frame,0,0,500,850);
           put_text(canvas, content, Hero_name, Hero_class, true);
